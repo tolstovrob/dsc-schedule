@@ -1,4 +1,4 @@
-export const schedule = [
+const schedule = [
   {
     title: 'Знакомство с Git',
     lecturer: 'Никита Рыданов',
@@ -12,7 +12,7 @@ export const schedule = [
     title: 'Введение в реверс-инжиниринг',
     lecturer: 'Данила Григорьев',
     difficulty: 3,
-    club: 'клуб КБ',
+    club: 'КБ',
     organisation: null,
     startTime: '12:05',
     endTime: '13:35',
@@ -27,25 +27,24 @@ export const schedule = [
     endTime: '15:45',
   },
   {
-    title: 'Typescript для строго фронтенда',
+    title: 'Typescript для строгого фронтенда',
     lecturer: 'Роберт Толстов',
     difficulty: 2,
-    club: 'клуб Web-разработки',
+    club: 'Web',
     organisation: null,
     startTime: '15:35',
     endTime: '16:35',
   },
 ];
 
-
 const getCurrentLecture = (lectures) => {
-  const now = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 12, 50, 0); // new Date();
+  const now = new Date();
   const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
 
   return lectures.find((lecture) => {
     const [startHours, startMinutes] = lecture.startTime.split(':').map(Number);
     const [endHours, endMinutes] = lecture.endTime.split(':').map(Number);
-    
+
     const lectureStartTime = startHours * 60 + startMinutes;
     const lectureEndTime = endHours * 60 + endMinutes;
 
@@ -54,15 +53,15 @@ const getCurrentLecture = (lectures) => {
 };
 
 const getUpcomingLectures = (lectures) => {
-  const now = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 12, 50, 0); // new Date();
+  const now = new Date();
   const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
 
   return lectures.filter((lecture) => {
     const [startHours, startMinutes] = lecture.startTime.split(':').map(Number);
-    
+
     const lectureStartTime = startHours * 60 + startMinutes;
 
-    return currentTimeInMinutes < lectureStartTime; // Лекции, которые еще не начались
+    return currentTimeInMinutes < lectureStartTime;
   });
 };
 
@@ -70,32 +69,44 @@ const displayLectures = () => {
   const currentLecture = getCurrentLecture(schedule);
   const upcomingLectures = getUpcomingLectures(schedule);
 
-  // Ссылки на элементы DOM
   const currentRef = document.getElementById('current');
   const upcomingRef = document.getElementById('upcoming');
+  const mainRef = document.getElementsByTagName('main')[0];
+
+  if (schedule.length === 0) {
+    mainRef.innerHTML = '<h1>std::cout << На сегодня нет лекций :( << std::endl;</h1>';
+    return;
+  }
 
   currentRef.innerHTML = '';
   upcomingRef.innerHTML = '';
 
-  // Отображение текущей лекции
   if (currentLecture) {
     const row = document.createElement('tr');
-    
+
     row.innerHTML = `
       <td>${currentLecture.title}</td>
-      <td>${currentLecture.lecturer}</td>
-      <td>${currentLecture.difficulty}</td>
       <td>${currentLecture.club}</td>
-      <td>${currentLecture.organisation || 'Нет'}</td>
-      <td>${currentLecture.startTime} - ${currentLecture.endTime}</td>
+      <td>
+        <div class="credentials">
+          <span>${currentLecture.lecturer}</span>
+          ${currentLecture.organisation ? `<span>${currentLecture.organisation}</span>` : ''}
+        </div>
+      </td>
+      <td>${currentLecture.difficulty}</td>
+      <td>
+        <div class="time">
+          <span>${currentLecture.startTime}</span>
+          <span>${currentLecture.endTime}</span>
+        </div>
+      </td>
     `;
-    
+
     currentRef.appendChild(row);
   } else {
     currentRef.innerHTML = '<tr><td>Перерыв...</td></tr>';
   }
 
-  // Отображение предстоящих лекций
   if (upcomingLectures.length === 0) {
     upcomingRef.innerHTML = '<tr><td>На сегодня лекций нет</td></tr>';
   } else {
@@ -104,11 +115,20 @@ const displayLectures = () => {
 
       row.innerHTML = `
         <td>${lecture.title}</td>
-        <td>${lecture.lecturer}</td>
-        <td>${lecture.difficulty}</td>
         <td>${lecture.club}</td>
-        <td>${lecture.organisation || 'Нет'}</td>
-        <td>${lecture.startTime} - ${lecture.endTime}</td>
+        <td>
+          <div class="credentials">
+            <span>${lecture.lecturer}</span>
+            ${lecture.organisation ? `<span>${lecture.organisation}</span>` : ''}
+          </div>
+        </td>
+        <td>${lecture.difficulty}</td>
+        <td>
+          <div class="time">
+            <span>${lecture.startTime}</span>
+            <span>${lecture.endTime}</span>
+          </div>
+        </td>
       `;
 
       upcomingRef.appendChild(row);
