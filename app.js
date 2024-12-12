@@ -2,7 +2,6 @@ const schedule = [
   {
     title: 'Знакомство с Git',
     lecturer: 'Никита Рыданов',
-    difficulty: 1,
     club: 'rand()',
     organisation: 'ORB Intelligence',
     startTime: '10:00',
@@ -11,7 +10,6 @@ const schedule = [
   {
     title: 'Введение в реверс-инжиниринг',
     lecturer: 'Данила Григорьев',
-    difficulty: 3,
     club: 'КБ',
     organisation: null,
     startTime: '12:05',
@@ -20,7 +18,6 @@ const schedule = [
   {
     title: 'Основы React',
     lecturer: 'Евгений Мангасарян',
-    difficulty: 1,
     club: 'rand()',
     organisation: 'ORB Intelligence',
     startTime: '13:45',
@@ -29,7 +26,6 @@ const schedule = [
   {
     title: 'Typescript для строгого фронтенда',
     lecturer: 'Роберт Толстов',
-    difficulty: 2,
     club: 'Web',
     organisation: null,
     startTime: '15:35',
@@ -38,7 +34,7 @@ const schedule = [
 ];
 
 const getCurrentLecture = (lectures) => {
-  const now = new Date(); // new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 10, 0, 0);
+  const now = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 10, 0, 0);
   const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
 
   return lectures.find((lecture) => {
@@ -53,7 +49,7 @@ const getCurrentLecture = (lectures) => {
 };
 
 const getUpcomingLectures = (lectures) => {
-  const now = new Date(); // new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 10, 0, 0);
+  const now = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 10, 0, 0);
   const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
 
   return lectures.filter((lecture) => {
@@ -92,11 +88,6 @@ const displayLectures = () => {
           </div>
         </td>
         <td>
-          <span class="bi bi-star-fill"></span>
-          <span class="bi bi-${currentLecture.difficulty < 2 ? 'star' : 'star-fill'}"></span>
-          <span class="bi bi-${currentLecture.difficulty < 3 ? 'star' : 'star-fill'}"></span>
-        </td>
-        <td>
           <div class="time">
             <span>${currentLecture.startTime}</span>
             <span>${currentLecture.endTime}</span>
@@ -127,11 +118,6 @@ const displayLectures = () => {
             <span>${lecture.lecturer}</span>
             ${lecture.organisation ? `<span>${lecture.organisation}</span>` : ''}
           </div>
-        </td>
-        <td>
-          <span class="bi bi-star-fill"></span>
-          <span class="bi bi-${lecture.difficulty < 2 ? 'star' : 'star-fill'}"></span>
-          <span class="bi bi-${lecture.difficulty < 3 ? 'star' : 'star-fill'}"></span>
         </td>
         <td>
           <div class="time">

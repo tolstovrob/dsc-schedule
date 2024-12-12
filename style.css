@@ -31,12 +31,12 @@ body {
 main {
   display: flex;
   flex-direction: column;
-  gap: 5rem;
+  gap: 2rem;
 }
 
 h1 {
-  font-size: 3rem;
-  margin-bottom: 1rem;
+  font-size: 2rem;
+  margin-bottom: .5rem;
 }
 
 table {
@@ -45,27 +45,26 @@ table {
   border-collapse: collapse;
   table-layout: fixed;
 
+  background-color: #1f1f1f1f;
+  border-radius: 1rem;
+
   /* border: 2px solid currentColor; */
-  font-size: 1.75rem;
+  font-size: 2rem;
 }
 
 table td {
   padding: 1rem 2rem;
-  overflow: hidden;
+  font-size: xx-large;
 }
 
 table td:nth-child(1) {
-  width: 50%;
-  font-size: 2rem;
+  width: 55%;
+  font-size: 2.5rem;
   font-weight: bold;
 }
 
 table td:nth-child(2) {
-  width: 25%;
-}
-
-table td:nth-child(3) {
-  width: 15%;
+  width: 35%;
 }
 
 table td:nth-child(4) {
@@ -78,5 +77,5 @@ table td > div {
 }
 
 table td > div.credentials > span:last-child:not(:first-child) {
-  font-size: 1rem;
+  font-size: 1.5rem;
 }
