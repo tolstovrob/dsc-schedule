@@ -38,7 +38,7 @@ const schedule = [
 ];
 
 const getCurrentLecture = (lectures) => {
-  const now = new Date();
+  const now = new Date(); // new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 10, 0, 0);
   const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
 
   return lectures.find((lecture) => {
@@ -53,7 +53,7 @@ const getCurrentLecture = (lectures) => {
 };
 
 const getUpcomingLectures = (lectures) => {
-  const now = new Date();
+  const now = new Date(); // new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 10, 0, 0);
   const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
 
   return lectures.filter((lecture) => {
@@ -71,12 +71,6 @@ const displayLectures = () => {
 
   const currentRef = document.getElementById('current');
   const upcomingRef = document.getElementById('upcoming');
-  const mainRef = document.getElementsByTagName('main')[0];
-
-  if (schedule.length === 0) {
-    mainRef.innerHTML = '<h1>std::cout << На сегодня нет лекций :( << std::endl;</h1>';
-    return;
-  }
 
   currentRef.innerHTML = '';
   upcomingRef.innerHTML = '';
@@ -85,21 +79,29 @@ const displayLectures = () => {
     const row = document.createElement('tr');
 
     row.innerHTML = `
-      <td>${currentLecture.title}</td>
-      <td>${currentLecture.club}</td>
       <td>
-        <div class="credentials">
-          <span>${currentLecture.lecturer}</span>
-          ${currentLecture.organisation ? `<span>${currentLecture.organisation}</span>` : ''}
-        </div>
-      </td>
-      <td>${currentLecture.difficulty}</td>
-      <td>
-        <div class="time">
-          <span>${currentLecture.startTime}</span>
-          <span>${currentLecture.endTime}</span>
-        </div>
-      </td>
+          <div class="credentials">
+            <span>${currentLecture.title}</span>
+            <span>${currentLecture.club}</span>
+          </div>
+        </td>
+        <td>
+          <div class="credentials">
+            <span>${currentLecture.lecturer}</span>
+            ${currentLecture.organisation ? `<span>${currentLecture.organisation}</span>` : ''}
+          </div>
+        </td>
+        <td>
+          <span class="bi bi-star-fill"></span>
+          <span class="bi bi-${currentLecture.difficulty < 2 ? 'star' : 'star-fill'}"></span>
+          <span class="bi bi-${currentLecture.difficulty < 3 ? 'star' : 'star-fill'}"></span>
+        </td>
+        <td>
+          <div class="time">
+            <span>${currentLecture.startTime}</span>
+            <span>${currentLecture.endTime}</span>
+          </div>
+        </td>
     `;
 
     currentRef.appendChild(row);
@@ -108,21 +110,29 @@ const displayLectures = () => {
   }
 
   if (upcomingLectures.length === 0) {
-    upcomingRef.innerHTML = '<tr><td>На сегодня лекций нет</td></tr>';
+    upcomingRef.innerHTML = '<tr><td>Завершение...</td></tr>';
   } else {
     upcomingLectures.forEach((lecture) => {
       const row = document.createElement('tr');
 
       row.innerHTML = `
-        <td>${lecture.title}</td>
-        <td>${lecture.club}</td>
+        <td>
+          <div class="credentials">
+            <span>${lecture.title}</span>
+            <span>${lecture.club}</span>
+          </div>
+        </td>
         <td>
           <div class="credentials">
             <span>${lecture.lecturer}</span>
             ${lecture.organisation ? `<span>${lecture.organisation}</span>` : ''}
           </div>
         </td>
-        <td>${lecture.difficulty}</td>
+        <td>
+          <span class="bi bi-star-fill"></span>
+          <span class="bi bi-${lecture.difficulty < 2 ? 'star' : 'star-fill'}"></span>
+          <span class="bi bi-${lecture.difficulty < 3 ? 'star' : 'star-fill'}"></span>
+        </td>
         <td>
           <div class="time">
             <span>${lecture.startTime}</span>
