@@ -1,7 +1,7 @@
 const schedule = [];
 
 const getCurrentLecture = (lectures) => {
-  const now = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 10, 0, 0);
+  const now = new Date();
   const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
 
   return lectures.find((lecture) => {
@@ -16,7 +16,7 @@ const getCurrentLecture = (lectures) => {
 };
 
 const getUpcomingLectures = (lectures) => {
-  const now = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 10, 0, 0);
+  const now = new Date();
   const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes();
 
   return lectures.filter((lecture) => {
