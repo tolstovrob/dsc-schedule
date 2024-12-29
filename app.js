@@ -1,37 +1,4 @@
-const schedule = [
-  {
-    title: 'Знакомство с Git',
-    lecturer: 'Никита Рыданов',
-    club: 'rand()',
-    organisation: 'ORB Intelligence',
-    startTime: '10:00',
-    endTime: '11:00',
-  },
-  {
-    title: 'Введение в реверс-инжиниринг',
-    lecturer: 'Данила Григорьев',
-    club: 'КБ',
-    organisation: null,
-    startTime: '12:05',
-    endTime: '13:35',
-  },
-  {
-    title: 'Основы React',
-    lecturer: 'Евгений Мангасарян',
-    club: 'rand()',
-    organisation: 'ORB Intelligence',
-    startTime: '13:45',
-    endTime: '15:45',
-  },
-  {
-    title: 'Typescript для строгого фронтенда',
-    lecturer: 'Роберт Толстов',
-    club: 'Web',
-    organisation: null,
-    startTime: '15:35',
-    endTime: '16:35',
-  },
-];
+const schedule = [];
 
 const getCurrentLecture = (lectures) => {
   const now = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate(), 10, 0, 0);
@@ -131,6 +98,27 @@ const displayLectures = () => {
     });
   }
 };
+
+const addLectureForm = document.getElementById('addLectureForm');
+
+addLectureForm.addEventListener('submit', (event) => {
+  event.preventDefault();
+
+  const newCourse = {
+    title: document.getElementById('title').value,
+    lecturer: document.getElementById('lecturer').value,
+    club: document.getElementById('club').value,
+    organisation: document.getElementById('organisation').value || null,
+    startTime: document.getElementById('startTime').value,
+    endTime: document.getElementById('endTime').value,
+  };
+
+  schedule.push(newCourse);
+  displayLectures();
+
+  addLectureForm.reset();
+});
+
 
 document.addEventListener('DOMContentLoaded', () => {
   displayLectures();

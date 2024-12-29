@@ -37,6 +37,19 @@
       </section>
     </main>
 
+    <section>
+      <form id="addLectureForm">
+        <h1>Добавить лекцию:</h1>
+        <input type="text" id="title" placeholder="Название лекции" required />
+        <input type="text" id="lecturer" placeholder="Лектор" required />
+        <input type="text" id="club" placeholder="Клуб" required />
+        <input type="text" id="organisation" placeholder="Организация (необязательно)" />
+        <input type="time" id="startTime" required />
+        <input type="time" id="endTime" required />
+        <button type="submit">Добавить лекцию</button>
+      </form>
+    </section>    
+
     <script
       type="module"
       src="app.js"></script>
